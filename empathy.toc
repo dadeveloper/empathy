@@ -10,3 +10,4 @@
 
 empathy.lua
 empathy_defaults.lua
+empathy_dadeveloper.lua
