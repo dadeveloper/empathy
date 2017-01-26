@@ -1,7 +1,7 @@
 local frame = CreateFrame("frame");
 
-frame:RegisterEvent('PLAYER_LOGIN');
-frame:RegisterEvent('GUILD_ROSTER_UPDATE');
+--frame:RegisterEvent('PLAYER_LOGIN');
+--frame:RegisterEvent('GUILD_ROSTER_UPDATE');
 
 local function event_dispatch(self, event, arg1, arg2, arg3, ...)
 	if event == "PLAYER_LOGIN" then
@@ -20,4 +20,17 @@ local function event_dispatch(self, event, arg1, arg2, arg3, ...)
 	end
 end
 
-frame:SetScript("OnEvent", event_dispatch);
+local function log_events(self, event, ...)
+
+	if empathy_sv == nil then
+		empathy_sv = {};
+		empathy_sv["events"] = {}
+	end
+
+	table.insert(empathy_sv["events"], {time(), event, ...});
+end
+
+frame:RegisterAllEvents();
+frame:SetScript("OnEvent", log_events);
+
+--frame:SetScript("OnEvent", event_dispatch);
